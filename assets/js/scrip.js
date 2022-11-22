@@ -23,7 +23,7 @@ var historyListEl = document.getElementById("history-list");
 var historyFormEl = document.getElementById("search-form");
 
 
-console.log(searchChar)
+
 
 
 var formSubmitHandler = function(event){
