@@ -4,36 +4,20 @@ var temperatureEl = document.getElementById("temperature");
 var windSpeedEl = document.getElementById("wind-speed");
 var humidityEl = document.getElementById("humidity");
 var uvEl = document.getElementById("UV-index");
-var searchChar = document.getElementById("city-search")
+var searchChar = document.getElementById("city-input")
+var searchHistory = [];
 
+var cityName = "Irvine";
 
+var weatherApiUrl = "https://api.openweathermap.org";
 var apiKey = "387c51dd523a8b61efaf47adae8b3466";
 
-
-function renderHistory(){
-
-}
+// for DOM
 
 
+var searchHistorySection = document.getElementById("history");
 
-function getCityName(){
-    var citySearch = charInput.value;
-    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch;
-    fetch (requestUrl)
-    .then (function(res){
-        return res.json();
-    })
-    .then (funcion(data){
-        var character = data.result[0]
-
-        cityNameEl.textContent= character.city
-        weatherIconEl.textContent= character.
-        temperatureEl.textContent= character.tempF
-        windSpeedEl.textContent= character.windMph
-        humidityEl.textContent= character.humidity
-        uvEl.textContent= character.uvindex
-    })
-}
-console.log(getCityName);
-
-searchChar.addEventListener("click", getCityName);
+var todayWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=imperial";
+var fivedaysForecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityName + ",us&appid=" + apiKey + "&units=imperial";
+var historyListEl = document.getElementById("history-list");
+var historyFormEl = document.getElementById("search-form");
