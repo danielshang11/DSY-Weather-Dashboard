@@ -8,5 +8,25 @@
 main {
     display: block;
     flex-wrap: wrap;
+}
 
+header{
+    background-color: rgb(86, 226, 222);
+    
+}
+
+.card {
+    background-color: bisque;
+    height: 200px;
+    text-align: center;
+    justify-content: center;
+    
+}
+
+.list{
+    background-color: rgb(242, 201, 150);
+}
+
+.fiveday{
+    justify-content: space-between;
 }
