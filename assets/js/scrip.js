@@ -3,8 +3,6 @@ var weatherIconEl = document.getElementById("weather-icon");
 var temperatureEl = document.getElementById("temperature");
 var windSpeedEl = document.getElementById("wind-speed");
 var humidityEl = document.getElementById("humidity");
-var uvEl = document.getElementById("UV-index");
-
 
 var searchChar = document.getElementById("city-input");
 var searchHistory = document.getElementById("history-list");
@@ -15,9 +13,6 @@ var weatherApiUrl = "https://api.openweathermap.org";
 var apiKey = "387c51dd523a8b61efaf47adae8b3466";
 
 // for DOM
-var searchedHistory = [];
-
-
 
 var todayWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchChar + "&appid=" + apiKey + "&units=imperial";
 var fivedaysForecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchChar + ",us&appid=" + apiKey + "&units=imperial";
@@ -29,9 +24,6 @@ document.addEventListener("submit",function handleFormSubmit(event) {
     event.preventDefault();
   
     var cityInput = searchChar.value;
-    var todayWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=" + apiKey + "&units=imperial";
-    var fivedaysForecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + ",us&appid=" + apiKey + "&units=imperial";
-
     localStorage.setItem("CitySearched", JSON.stringify(cityInput));
     getSearched();
     historyApend();
@@ -40,15 +32,8 @@ document.addEventListener("submit",function handleFormSubmit(event) {
     document.getElementById("search-form").reset();
 })
 
-function displayMessage(type, message) {
-    msgDiv.textContent = message;
-    msgDiv.setAttribute("class", type);
-}
-
-
 
 function getSearched(){
-    var cityInput = searchChar.value;
     var citySearched = JSON.parse(localStorage.getItem(""))
 
 
@@ -64,21 +49,40 @@ function getSearched(){
 function historyApend(){
     var cityInput = searchChar.value;
     if(!cityInput){
-        window.alert("please enter city");
+        window.alert("please enter city name!");
         return;
     }
     var historyListItemEl = document.createElement("button")
     
     historyListItemEl.innerHTML= cityInput;
-    historyListItemEl.setAttribute("type", "button");
-    historyListItemEl.setAttribute("value", "searchChar");
+  
+    historyListItemEl.setAttribute("value", cityInput);
     historyListItemEl.setAttribute("class", "col-12");
-     document.body.appendChild(historyListItemEl);
- 
+    historyListItemEl.setAttribute("id","history-btn");
+   
+    document.body.appendChild(historyListItemEl);
+    historyListItemEl.addEventListener("click", function(){
+        getWeather(historyListItemEl.value)
+        console.log(historyListItemEl.value)
+    })
     //  print to the page
-    historyListEl.append(historyListItemEl);
+    historyListEl.appendChild(historyListItemEl);
 }
 
+
+
+// function searchHistory(event) {
+//     // Don't do search if current elements is not a search history button
+//     if (!event.target.matches("history-btn")) {
+//       return;
+//     }
+  
+//     var btn = event.target;
+//     var search = btn.getAttribute("");
+//     getWeather(search);
+
+//     console.log(event)
+//   }
 
 
 function getWeather(){
