@@ -21,15 +21,18 @@ header{
 
 .card {
     background-color: bisque;
-    height: 40%;
     text-align: center;
     justify-content: center;
-    
-    
+    padding-bottom: 20px;
 }
 
 .list{
-    background-color: rgb(242, 201, 150);
+    background-color: rgba(254, 202, 119, 0.428);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
 }
 
 .fiveday{
@@ -38,4 +41,14 @@ header{
 
 .s-list{
     margin-top: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+.search-btn {
+    background-color: aquamarine;
+    margin-top: 6px;
+    
 }
