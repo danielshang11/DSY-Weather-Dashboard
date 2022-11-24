@@ -63,15 +63,23 @@ function getWeather(cityInput){
     // var redirectUrl = "./error.html"
     fetch(todayWeatherUrl)
     .then(function(res){
-    //   if (res.ok) {
+      if (res !== 200) {
         return res.json();
-    //   } else {
-    //     alert('Error: ' + res.statusText);
-    //   }
+      } else {
+        alert('Error: ' + res.statusText);
+      }
     })
     .then(function(data){
         // day 0 = today
         document.getElementById("city-name").textContent = data.name;
+        
+        var dateArr = Date().split(" ");
+        var day = dateArr[0];
+        var month = dateArr[1];
+        var date = dateArr[2];
+        var year = dateArr[3];
+        document.getElementById("today-date").textContent = day + ", " + month + " " + date + ", " + year;
+        
         // icon needs to do separatly
         var icon = data.weather[0].icon;
         var iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
@@ -85,13 +93,18 @@ function getWeather(cityInput){
 
     fetch(fivedaysForecastUrl)
     .then(function(res){
-        return res.json();        
+        if (res !== 200) {
+            return res.json();
+          } else {
+            alert('Error: ' + res.statusText);
+          }       
     })
     .then(function(data){
 
         // day 1 
+        
         var d1Date = data.list[3].dt_txt.split(" ")[0];
-        document.getElementById("weather-icon1st").textContent = d1Date;
+        document.getElementById("date1st").textContent=d1Date
         var d1Icon = data.list[3].weather[0].icon;
         var iconUrl1st = "http://openweathermap.org/img/wn/" + d1Icon + "@2x.png";
         document.getElementById("weather-icon1st").setAttribute("src", iconUrl1st);
@@ -103,8 +116,9 @@ function getWeather(cityInput){
         document.getElementById("wind-speed1st").textContent = d1windS;
 
         // day2
+        
         var d2Date = data.list[11].dt_txt.split(" ")[0];
-        document.getElementById("weather-icon2nd").textContent = d2Date;
+        document.getElementById("date2nd").textContent=d2Date;
         var d2Icon = data.list[11].weather[0].icon;
         var iconUrl2nd = "http://openweathermap.org/img/wn/" + d2Icon + "@2x.png";
         document.getElementById("weather-icon2nd").setAttribute("src", iconUrl2nd);
@@ -116,8 +130,9 @@ function getWeather(cityInput){
         document.getElementById("wind-speed2nd").textContent = d2windS;
 
         // day3
+        
         var d3Date = data.list[19].dt_txt.split(" ")[0];
-        document.getElementById("weather-icon3rd").textContent = d3Date;
+        document.getElementById("date3rd").textContent=d3Date;
         var d3Icon = data.list[19].weather[0].icon;
         var iconUrl3rd = "http://openweathermap.org/img/wn/" + d3Icon + "@2x.png";
         document.getElementById("weather-icon3rd").setAttribute("src", iconUrl3rd);
@@ -130,7 +145,7 @@ function getWeather(cityInput){
 
         // day4
         var d4Date = data.list[27].dt_txt.split(" ")[0];
-        document.getElementById("weather-icon4th").textContent = d4Date;
+        document.getElementById("date4th").textContent = d4Date;
         var d4Icon = data.list[27].weather[0].icon;
         var iconUrl4th = "http://openweathermap.org/img/wn/" + d4Icon + "@2x.png";
         document.getElementById("weather-icon4th").setAttribute("src", iconUrl4th);
@@ -143,7 +158,7 @@ function getWeather(cityInput){
 
         // day5
         var d5Date = data.list[35].dt_txt.split(" ")[0];
-        document.getElementById("weather-icon5th").textContent = d5Date;
+        document.getElementById("date5th").textContent = d5Date;
         var d5Icon = data.list[35].weather[0].icon;
         var iconUrl5th = "http://openweathermap.org/img/wn/" + d5Icon + "@2x.png";
         document.getElementById("weather-icon5th").setAttribute("src", iconUrl5th);
@@ -154,4 +169,5 @@ function getWeather(cityInput){
         var d5windS = data.list[35].wind.speed
         document.getElementById("wind-speed5th").textContent = d5windS;
     })
+    .catch((error)=> console.error(error))
 }
