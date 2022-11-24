@@ -10,17 +10,17 @@ var searchChar = document.getElementById("city-input");
 var weatherApiUrl = "https://api.openweathermap.org";
 var apiKey = "387c51dd523a8b61efaf47adae8b3466";
 
-// for DOM
 
 var todayWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + searchChar + "&appid=" + apiKey + "&units=imperial";
 var fivedaysForecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchChar + ",us&appid=" + apiKey + "&units=imperial";
 var historyListEl = document.getElementById("history-list");
 var historyFormEl = document.getElementById("search-form");
 
+// add eventlistener that the function handleFormSubmit will work if user submit the city which must not to be blank.
 
 document.addEventListener("submit",function handleFormSubmit(event) {
     event.preventDefault();
-    
+    // the container's car won't be shown unless user submit
     var pageStart = document.getElementById("container")
     pageStart.classList.remove("hide")
     
@@ -29,10 +29,10 @@ document.addEventListener("submit",function handleFormSubmit(event) {
     
     historyApend();
     getWeather(cityInput);
-    
+    // everytime user submits, clear the form
     document.getElementById("search-form").reset();
 })
-
+// make it append the button for the city search
 function historyApend(){
     var cityInput = searchChar.value;
     if(!cityInput){
@@ -56,11 +56,11 @@ function historyApend(){
     historyListEl.appendChild(historyListItemEl);
 }
 
-
+// this function will fetch twice for today and 5 days cuz in html file i make it into different section.
 function getWeather(cityInput){
     var todayWeatherUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=" + apiKey + "&units=imperial";
     var fivedaysForecastUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + ",us&appid=" + apiKey + "&units=imperial";
-    // var redirectUrl = "./error.html"
+    
     fetch(todayWeatherUrl)
     .then(function(res){
       if (res !== 200) {
@@ -70,7 +70,7 @@ function getWeather(cityInput){
       }
     })
     .then(function(data){
-        // day 0 = today
+        
         document.getElementById("city-name").textContent = data.name;
         
         var dateArr = Date().split(" ");
